@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
+const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = require('./config/config');
 const port = process.env.PORT || 5001;
+const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
+
 
 
 /** Connecting to db */
@@ -16,7 +19,13 @@ const port = process.env.PORT || 5001;
 
 // pointing to the host / ip based on docker-compose configuration
 mongoose
-    .connect('mongodb://root:password@mongo:27017/?authSource=admin')
+    .connect(
+        mongoUrl,
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }
+    )
     .then(() => console.log('Successfully connected to the mongo database.'))
     .catch((e) => console.log(e))
 
