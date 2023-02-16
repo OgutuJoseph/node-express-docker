@@ -9,6 +9,7 @@ const mongoUrl = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_
 
 
 
+
 /** Connecting to db */
 // mongoose.connect('mongodb://username:password@host:port/database?options...')
 
@@ -38,6 +39,13 @@ const connectWithRetry = () => {
 };
 connectWithRetry();
 
+/** Middlewares */
+// To allow requests' body to be processed <for express to take body of request and attach it to request that controller has access to> )
+app.use(express.json()); 
+
+
+/** Routers */
+const postRouter = require('./routes/postRoutes');
 
 /** Routes */
 app.get('/', (req, res) => {
@@ -52,7 +60,9 @@ app.get('/', (req, res) => {
     <br />
     <h4>Production</h4>
     `)
-})
+});
+
+app.use('/api/v1/posts', postRouter);
 
 app.listen(port, () => {
     console.log(`Server has started on port: ${port}`)
