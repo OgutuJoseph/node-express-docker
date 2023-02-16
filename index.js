@@ -46,6 +46,7 @@ app.use(express.json());
 
 /** Routers */
 const postRouter = require('./routes/postRoutes');
+const userRouter = require('./routes/userRoutes')
 
 /** Routes */
 app.get('/', (req, res) => {
@@ -63,6 +64,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/posts', postRouter);
+app.use('/api/v1/users', userRouter);
 
 app.listen(port, () => {
     console.log(`Server has started on port: ${port}`)
