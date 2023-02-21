@@ -1,5 +1,8 @@
 version: '3'
 services:
+  nginx:
+    ports: 
+      - '5001:80'
   node-docker-container:
     build:
       context: .
