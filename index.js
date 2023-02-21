@@ -53,6 +53,8 @@ const connectWithRetry = () => {
 connectWithRetry();
 
 /** Middlewares */
+// trust proxy
+app.enable('trust proxy');
 // redis
 app.use(
     session({
@@ -79,7 +81,7 @@ const postRouter = require('./routes/postRoutes');
 const userRouter = require('./routes/userRoutes')
 
 /** Routes */
-app.get('/', (req, res) => {
+app.get('/api/v1', (req, res) => {
     // res.send('<h2>:: !! ::Node Docker:: !! :</h2>')
     // res.send(`
     // <h2>:: !! ::Node Docker:: !! ::</h2>
@@ -89,8 +91,9 @@ app.get('/', (req, res) => {
     res.send(`
     <h2>:: !! ::Node Docker:: !! ::</h2>
     <br />
-    <h4>Production</h4>
+    <h4>Development</h4>
     `)
+    console.log('scale up ran');
 });
 
 app.use('/api/v1/posts', postRouter);
