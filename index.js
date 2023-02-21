@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
+const cors = require('cors');
 // configs
 const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT, REDIS_URL, REDIS_PORT, SESSION_SECRET } = require('./config/config');
 const port = process.env.PORT || 5001;
@@ -55,6 +56,8 @@ connectWithRetry();
 /** Middlewares */
 // trust proxy
 app.enable('trust proxy');
+//cors
+app.use(cors({}));
 // redis
 app.use(
     session({
@@ -71,7 +74,7 @@ app.use(
         }
     
     })
-  )
+)
 // To allow requests' body to be processed <for express to take body of request and attach it to request that controller has access to> )
 app.use(express.json()); 
 
